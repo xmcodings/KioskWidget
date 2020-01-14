@@ -11,6 +11,12 @@ let temp5;
 let temp6;
 
 let caramelSound;
+let backSound;
+let plusSound;
+let minusSound;
+let discountSound;
+
+
 
 let btnArray = []; // Container for buttons
 
@@ -21,6 +27,7 @@ var imageHeight;
 var size;
 
 var scenenumber;
+var mouseRelease;
 
 function setup()
 {
@@ -46,8 +53,11 @@ temp6 = loadImage("resources/6.png");
 soundFormats('mp3', 'ogg');
 
 caramelSound = loadSound('audio/caramel.mp3');
+backSound = loadSound('audio/back.mp3')
+minusSound = loadSound('audio/minus.mp3')
+plusSound = loadSound('audio/plus.mp3')
+discountSound = loadSound('audio/discount.mp3')
 
-  
 icon = loadImage('resources/WidgetIcon.png');
 
 widget = new Widget(icon);
@@ -69,7 +79,10 @@ if (windowWidth * imageRatio < realHeight)
   }
   scenenumber = 1;
   scene1But1 = new WidgetButton(imgWidth*7/10, imgHeight * 8/12,imgWidth/20 ,imgHeight / 40, false);
-  scene2But1 = new WidgetButton(imgWidth*7/10, imgHeight * 8/12,imgWidth/20 ,imgHeight / 40, false);
+  scene2Minus = new WidgetButton(imgWidth*9/20, imgHeight * 21/32,imgWidth/15 ,imgHeight / 15, false);
+  scene2Plus = new WidgetButton(imgWidth*41/64, imgHeight * 21/32,imgWidth/15 ,imgHeight / 15, false);
+  scene2Select = new WidgetButton(imgWidth*2/3, imgHeight * 29/32,imgWidth/3.5 ,imgHeight / 15, false);
+  scene2Back = new WidgetButton(imgWidth*1/3, imgHeight * 29/32,imgWidth/4 ,imgHeight / 15, false);
 
   scene1But1.setActive(true);
   
@@ -79,6 +92,7 @@ if (windowWidth * imageRatio < realHeight)
 function draw()
 {
 // display
+mouseRelease = false;
 if (windowWidth * imageRatio < realHeight)
 {
   imgWidth = windowWidth;
@@ -151,6 +165,8 @@ class Widget {
 
 function scene1()
 {
+  img = temp1;
+  scene1But1.setActive(true);
   scene1But1.display();
   scene1But1.updatePos(imgWidth*7/10, imgHeight * 21/32,imgWidth/9 ,imgHeight / 30);
   
@@ -158,16 +174,49 @@ function scene1()
   {
     console.log("clicked!!!");
     scenenumber = 2;
-    img = temp2;
+    
     caramelSound.play();
-
+    scene1But1.setActive(false);
   }
 
 }
 
 function scene2()
 {
+  img = temp2;
+  scene2Back.setActive(true);
+  scene2Minus.setActive(true);
+  scene2Plus.setActive(true);
+  scene2Select.setActive(true);
+  scene2Minus.display();
+  scene2Plus.display();
+  scene2Select.display();
+  scene2Back.display();
   
+  if(scene2Back.isClick())
+  {
+    scenenumber = 1;
+    scene2Back.setActive(false);
+    scene2Minus.setActive(false);
+    scene2Plus.setActive(false);
+    scene2Select.setActive(false);
+    
+    backSound.play();
+
+  }
+  if(scene2Minus.isClick())
+  {
+    
+    minusSound.play();
+  }
+  if(scene2Plus.isClick())
+  {
+    
+    plusSound.play();
+  }
+
+
+
 
 }
 function scene3()
@@ -268,6 +317,17 @@ class WidgetButton {
     return false;
 
   }
+
+  isClickRelease()
+  {
+    if(this.isClick() && mouseRelease)
+    {
+      return true;
+
+    }
+    return false;
+  }
+
   moveButton(xpos, ypos){
     this.x = xpos;
     this.y = ypos; 
@@ -276,4 +336,9 @@ class WidgetButton {
   changeStatus(status){
     this.status = status;
   }
+}
+
+mousClicked()
+{
+  mouseRelease = true;
 }
