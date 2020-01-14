@@ -2,19 +2,37 @@ var weight;
 let img;
 let icon;
 let c;
+let imageRatio;
+var realHeight;
+
+var imageWidth;
+var imageHeight;
+var size;
 
 function setup()
 {
-  
 createCanvas(windowWidth, windowHeight); 
+size = windowHeight * windowWidth;
+
 background(20,40,40);
+  
 img = loadImage('resources/temp.jpg');
 icon = loadImage('resources/WidgetIcon.png');
 widget = new Widget(icon);
+
+//tempBut = new WidgetButton(50,50,10); create button
+
+imageRatio = img.height / img.width;
+realHeight = windowHeight;
+
+
+strokeWeight(3);
+
 }
 
 function draw()
 {
+
   image(img, 0, 0, windowWidth, windowHeight);
   widget.display();
 }
