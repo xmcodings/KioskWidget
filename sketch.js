@@ -25,6 +25,7 @@ class Widget {
       this.icon = icon;
       this.widget_height= mouseY;
       this.count = false;
+      this.button = new WidgetButton(windowWidth-60, this.widget_height, 50, 50);
     }
 
     display(){
@@ -45,7 +46,7 @@ class Widget {
         c = color('rgba(255,255,255, 1');
       }
       else{
-        c = color('rgba(255,255,255, 0.5)');
+        c = color('rgba(255,255,255, 0.3)');
       }
       fill(c);
       ellipse(windowWidth-60, this.widget_height, 50, 50);
@@ -53,9 +54,75 @@ class Widget {
     }
 
     update(){
-      if(true) {
-        this.widget_height = mouseY;
+      if(this.button.isClick()) {
         this.count = true;
       }
+      else{
+        this.widget_height = mouseY;
+        this.button.moveButton(windowWidth-60, this.widget_height);
+        this.count = false;
+      }
     }
+}
+
+class WidgetButton {
+  constructor(xpos, ypos, sizex, sizey) {
+    this.x = xpos;
+    this.y = ypos;
+    
+    this.diameterX = sizex;
+    this.diameterY = sizey;
+    this.clicked = false;
+  }
+
+  updatePos(xPos, yPos, sizex, sizey)
+  {
+    this.x = xPos;
+    this.y = yPos;
+
+    this.diameterX = sizex;
+    this.diameterY = sizey;
+  }
+
+  display() {
+    fill(0,0,0,0);
+    stroke(255,0,0);
+    strokeWeight(1);
+
+    ellipse(this.x, this.y, this.diameterX, this.diameterY);
+    
+  }
+
+  isOver()
+  {
+    if(mouseX > this.x - this.diameterX/2 && mouseX < this.x + this.diameterX/2)
+    {
+      if(mouseY > this.y - this.diameterY/2 && mouseY < this.y + this.diameterY/2 )
+      {
+        return true;
+      }
+    }
+    else{
+      return false;
+    }
+  }
+
+  isClick()
+  {
+    if(mouseIsPressed)
+    {
+      if(this.isOver()){
+        this.clicked = true;
+      }
+      else{
+        this.clicked = false;
+      }
+    }
+    return this.clicked;
+  }
+
+  moveButton(xpos, ypos){
+    this.x = xpos;
+    this.y = ypos; 
+  }
 }
