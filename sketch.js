@@ -20,13 +20,15 @@ var scenenumber;
 
 function setup()
 {
-createCanvas(windowWidth, windowHeight); 
-size = windowHeight * windowWidth;
+
+  createCanvas(windowWidth, windowHeight); 
+  size = windowHeight * windowWidth;
 
 background(20,40,40);
 
 
 img = loadImage("resources/1.png");
+
 temp1 = loadImage("resources/1.png");
 temp2 = loadImage("resources/2.png");
 
@@ -52,11 +54,15 @@ if (windowWidth * imageRatio < realHeight)
     imgWidth = windowHeight / imageRatio;
     imgHeight = windowHeight;
   }
+<<<<<<< HEAD
   scenenumber = 1;
   scene1But1 = new WidgetButton(imgWidth*7/10, imgHeight * 8/12,imgWidth/20 ,imgHeight / 40, false);
   scene2But1 = new WidgetButton(imgWidth*7/10, imgHeight * 8/12,imgWidth/20 ,imgHeight / 40, false);
 
   scene1But1.setActive(true);
+=======
+  
+>>>>>>> bad9f2afb55ced02b0c74a49aae10201024c61bc
   
 
 }
@@ -82,10 +88,16 @@ function draw()
     imgHeight = windowHeight;
   }
   image(img, 0, 0, imgWidth, imgHeight);
-  
+  // widget
   strokeWeight(3);
   stroke(0);
   ellipse(windowWidth-60, mouseY, size / 15, size / 15);
+<<<<<<< HEAD
+=======
+// display
+  displayScene();
+  
+>>>>>>> bad9f2afb55ced02b0c74a49aae10201024c61bc
   
   displayScene();
 
@@ -103,12 +115,32 @@ function scene1()
   
   if(scene1But1.isClick())
   {
+<<<<<<< HEAD
     scenenumber = 2;
     img = temp2;
+=======
+    case 1: scene1(); break;
+    case 2: scene2(); break;
+
+>>>>>>> bad9f2afb55ced02b0c74a49aae10201024c61bc
 
   }
 
 }
+<<<<<<< HEAD
+=======
+
+function scene1()
+{
+  img = temp1;
+  // buttons 
+  caramel = new WidgetButton(imgWidth*7/10, imgHeight * 8/12,imgWidth/20 ,imgHeight / 40);
+
+  
+  btnArray.push(caramel);
+}
+
+>>>>>>> bad9f2afb55ced02b0c74a49aae10201024c61bc
 function scene2()
 {
   
@@ -124,6 +156,7 @@ function scene3()
 
 function displayScene()
 {
+<<<<<<< HEAD
   switch(scenenumber)
   {
     case 1: scene1();
@@ -135,6 +168,19 @@ function displayScene()
     default:
       break;
   }
+=======
+  for (button in btnArray)
+  {
+    button.display();
+    button.updatePos(imgWidth*7/10, imgHeight * 21/32,imgWidth/9 ,imgHeight / 30);
+    if(button.isClick())
+    {
+
+    }
+  }
+  
+  
+>>>>>>> bad9f2afb55ced02b0c74a49aae10201024c61bc
 }
 
 
