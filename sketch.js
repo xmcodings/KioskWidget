@@ -3,29 +3,28 @@ let img;
 
 var imageWidth;
 var imageHeight;
-
+var size;
 function setup()
 {
-  
 createCanvas(windowWidth, windowHeight); 
+size = windowHeight * windowWidth;
 
 background(20,40,40);
 img = loadImage('resources/temp.jpg');
-strokeWeight(10);
+strokeWeight(2);
 
 tempBut = new WidgetButton();
 background(20,40,40);
 img = loadImage("resources/temp.jpg");
 
 
-weight = 3;
 }
 
 function draw()
 {
-  image(img, 0, 0, windowWidth, windowHeight);
-
-  ellipse(windowWidth-60, mouseY, 50, 50);
+  image(img, 5, 5, windowWidth-5, windowHeight-5);
+  size = Math.sqrt(windowHeight * windowWidth) 
+  ellipse(windowWidth-60, mouseY, size / 15, size / 15);
 
   tempBut.move();
   tempBut.display();
@@ -33,7 +32,10 @@ function draw()
   
 }
 
-function windowResized() { resizeCanvas(windowWidth, windowHeight); }
+function windowResized() { 
+  resizeCanvas(windowWidth, windowHeight); 
+  
+}
 
 class WidgetButton {
   constructor() {
@@ -50,6 +52,11 @@ class WidgetButton {
 
   display() {
     ellipse(this.x, this.y, this.diameter, this.diameter);
+  }
+
+  isOver()
+  {
+    if(mouseX)
   }
 
 }
