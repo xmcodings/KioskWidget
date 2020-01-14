@@ -10,6 +10,8 @@ let temp4;
 let temp5;
 let temp6;
 
+let caramelSound;
+
 let btnArray = []; // Container for buttons
 
 var realHeight;
@@ -41,7 +43,9 @@ temp4 = loadImage("resources/4.png");
 temp5 = loadImage("resources/5.png");
 temp6 = loadImage("resources/6.png");
 
+soundFormats('mp3', 'ogg');
 
+caramelSound = loadSound('audio/caramel.mp3');
 
   
 icon = loadImage('resources/WidgetIcon.png');
@@ -155,6 +159,7 @@ function scene1()
     console.log("clicked!!!");
     scenenumber = 2;
     img = temp2;
+    caramelSound.play();
 
   }
 
