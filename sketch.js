@@ -26,6 +26,10 @@ class Widget {
       this.widget_height= mouseY;
       this.count = false;
       this.button = new WidgetButton(windowWidth-60, this.widget_height, 50, 50);
+      this.menu1 = new WidgetButton(windowWidth-155,this.widget_height-20,20,20);
+      this.menu1.changeStatus(false);
+      this.menu2 = new WidgetButton(windowWidth-155,this.widget_height+20,20,20);
+      this.menu2.changeStatus(false);
     }
 
     display(){
@@ -56,11 +60,15 @@ class Widget {
     update(){
       if(this.button.isClick()) {
         this.count = true;
+        this.menu1.changeStatus(true);
+        this.menu2.changeStatus(true);
       }
       else{
         this.widget_height = mouseY;
         this.button.moveButton(windowWidth-60, this.widget_height);
         this.count = false;
+        this.menu1.changeStatus(false);
+        this.menu2.changeStatus(false);
       }
     }
 }
@@ -73,6 +81,7 @@ class WidgetButton {
     this.diameterX = sizex;
     this.diameterY = sizey;
     this.clicked = false;
+    this.status = true;
   }
 
   updatePos(xPos, yPos, sizex, sizey)
@@ -82,15 +91,6 @@ class WidgetButton {
 
     this.diameterX = sizex;
     this.diameterY = sizey;
-  }
-
-  display() {
-    fill(0,0,0,0);
-    stroke(255,0,0);
-    strokeWeight(1);
-
-    ellipse(this.x, this.y, this.diameterX, this.diameterY);
-    
   }
 
   isOver()
@@ -109,7 +109,7 @@ class WidgetButton {
 
   isClick()
   {
-    if(mouseIsPressed)
+    if(mouseIsPressed&&this.status)
     {
       if(this.isOver()){
         this.clicked = true;
@@ -124,5 +124,9 @@ class WidgetButton {
   moveButton(xpos, ypos){
     this.x = xpos;
     this.y = ypos; 
+  }
+
+  changeStatus(status){
+    this.status = status;
   }
 }
