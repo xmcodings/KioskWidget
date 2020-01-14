@@ -38,11 +38,10 @@ function windowResized() {
 }
 
 class WidgetButton {
-  constructor() {
+  constructor(xpos, ypos, size) {
     this.x = random(windowWidth);
     this.y = random(windowHeight);
-    this.diameter = random(10, 30);
-    this.speed = 1;
+    
   }
 
   move() {
@@ -52,11 +51,31 @@ class WidgetButton {
 
   display() {
     ellipse(this.x, this.y, this.diameter, this.diameter);
+    this.isClick();
   }
 
   isOver()
   {
-    if(mouseX)
+    if(mouseX > this.x - this.diameter/2 && mouseX > this.x - this.diameter/2)
+    {
+      if(mouseY > this.y - this.diameter/2 && mouseY < this.y + this.diameter/2 )
+      {
+        return true;
+      }
+    }
+    else{
+      return false;
+    }
+  }
+
+  isClick()
+  {
+    if(this.isOver() && mouseIsPressed)
+    {
+      this.x = random(windowWidth);
+      this.y = random(windowHeight);
+      this.diameter = random(10, 30);
+    }
   }
 
 }
