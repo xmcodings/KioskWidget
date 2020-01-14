@@ -1,5 +1,7 @@
 var weight;
 let img;
+let icon;
+let c;
 let imageRatio;
 let temp1;
 let temp2;
@@ -27,6 +29,7 @@ function setup()
 background(20,40,40);
 
 
+
 img = loadImage("resources/1.png");
 
 temp1 = loadImage("resources/1.png");
@@ -39,6 +42,12 @@ temp5 = loadImage("resources/5.png");
 temp6 = loadImage("resources/6.png");
 
 
+
+  
+icon = loadImage('resources/WidgetIcon.png');
+widget = new Widget(icon);
+
+//tempBut = new WidgetButton(50,50,10); create button
 
 imageRatio = img.height / img.width;
 realHeight = windowHeight;
@@ -54,58 +63,76 @@ if (windowWidth * imageRatio < realHeight)
     imgWidth = windowHeight / imageRatio;
     imgHeight = windowHeight;
   }
-<<<<<<< HEAD
   scenenumber = 1;
   scene1But1 = new WidgetButton(imgWidth*7/10, imgHeight * 8/12,imgWidth/20 ,imgHeight / 40, false);
   scene2But1 = new WidgetButton(imgWidth*7/10, imgHeight * 8/12,imgWidth/20 ,imgHeight / 40, false);
 
   scene1But1.setActive(true);
-=======
-  
->>>>>>> bad9f2afb55ced02b0c74a49aae10201024c61bc
   
 
 }
 
 function draw()
 {
-  
-  size = Math.sqrt(windowHeight * windowWidth) 
-  
-  var imgWidth;
-  var imgHeight;
-  imageWidth = img.width;
-  imageHeight = img.height;
-
-  if (windowWidth * imageRatio < realHeight)
-  {
-    imgWidth = windowWidth;
-    imgHeight = imgWidth * imageRatio;
-  }
-  else
-  {
-    imgWidth = windowHeight / imageRatio;
-    imgHeight = windowHeight;
-  }
-  image(img, 0, 0, imgWidth, imgHeight);
-  // widget
-  strokeWeight(3);
-  stroke(0);
-  ellipse(windowWidth-60, mouseY, size / 15, size / 15);
-<<<<<<< HEAD
-=======
 // display
   displayScene();
   
->>>>>>> bad9f2afb55ced02b0c74a49aae10201024c61bc
-  
-  displayScene();
-
+  image(img, 0, 0, windowWidth, windowHeight);
+  widget.display();
 }
+function windowResized() { resizeCanvas(windowWidth, windowHeight); }
 
-function windowResized() { 
-  resizeCanvas(windowWidth, windowHeight); 
-  
+class Widget {
+    constructor(icon){
+      this.icon = icon;
+      this.widget_height= mouseY;
+      this.count = false;
+      this.button = new WidgetButton(windowWidth-60, this.widget_height, 50, 50);
+      this.menu1 = new WidgetButton(windowWidth-155,this.widget_height-20,20,20);
+      this.menu1.changeStatus(false);
+      this.menu2 = new WidgetButton(windowWidth-155,this.widget_height+20,20,20);
+      this.menu2.changeStatus(false);
+    }
+
+    display(){
+      this.update();
+      strokeWeight(3);
+      if(this.count){
+        c = color('rgba(255,255,255, 1)');
+        fill(c);
+        arc(windowWidth-60, this.widget_height, 200, 200, PI, PI + QUARTER_PI,PIE);
+        arc(windowWidth-60, this.widget_height, 200, 200, PI-QUARTER_PI, PI,PIE);
+
+        c = color('rgba(0,0,0,1)');
+        fill(c);
+        textSize(15);
+        text('차차모드',windowWidth-155,this.widget_height-20);
+        text('음성안내',windowWidth-155,this.widget_height+20);
+
+        c = color('rgba(255,255,255, 1');
+      }
+      else{
+        c = color('rgba(255,255,255, 0.3)');
+      }
+      fill(c);
+      ellipse(windowWidth-60, this.widget_height, 50, 50);
+      image(icon,windowWidth-82,this.widget_height-12,40,20);
+    }
+
+    update(){
+      if(this.button.isClick()) {
+        this.count = true;
+        this.menu1.changeStatus(true);
+        this.menu2.changeStatus(true);
+      }
+      else{
+        this.widget_height = mouseY;
+        this.button.moveButton(windowWidth-60, this.widget_height);
+        this.count = false;
+        this.menu1.changeStatus(false);
+        this.menu2.changeStatus(false);
+      }
+    }
 }
 
 function scene1()
@@ -115,20 +142,13 @@ function scene1()
   
   if(scene1But1.isClick())
   {
-<<<<<<< HEAD
+
     scenenumber = 2;
     img = temp2;
-=======
-    case 1: scene1(); break;
-    case 2: scene2(); break;
-
->>>>>>> bad9f2afb55ced02b0c74a49aae10201024c61bc
-
+  
   }
 
 }
-<<<<<<< HEAD
-=======
 
 function scene1()
 {
@@ -140,7 +160,6 @@ function scene1()
   btnArray.push(caramel);
 }
 
->>>>>>> bad9f2afb55ced02b0c74a49aae10201024c61bc
 function scene2()
 {
   
@@ -156,7 +175,6 @@ function scene3()
 
 function displayScene()
 {
-<<<<<<< HEAD
   switch(scenenumber)
   {
     case 1: scene1();
@@ -168,29 +186,18 @@ function displayScene()
     default:
       break;
   }
-=======
-  for (button in btnArray)
-  {
-    button.display();
-    button.updatePos(imgWidth*7/10, imgHeight * 21/32,imgWidth/9 ,imgHeight / 30);
-    if(button.isClick())
-    {
-
-    }
-  }
-  
-  
->>>>>>> bad9f2afb55ced02b0c74a49aae10201024c61bc
 }
 
 
 class WidgetButton {
+
   constructor(xpos, ypos, sizex, sizey, active) {
     this.x = xpos;
     this.y = ypos;
     
     this.diameterX = sizex;
     this.diameterY = sizey;
+
     this.isactive = active;
   }
 
@@ -240,11 +247,22 @@ class WidgetButton {
 
   isClick()
   {
+
     if(this.isactive && this.isOver() && mouseIsPressed)
+
     {
-      return true;
+      if(this.isOver()){
+        this.clicked = true;
+      }
+      else{
+        this.clicked = false;
+      }
     }
     return false;
+
   }
 
+  changeStatus(status){
+    this.status = status;
+  }
 }
