@@ -3,20 +3,47 @@ let img;
 let icon;
 let c;
 let imageRatio;
+let temp1;
+let temp2;
+let temp3;
+let temp4;
+let temp5;
+let temp6;
+
+let btnArray = []; // Container for buttons
+
 var realHeight;
 
 var imageWidth;
 var imageHeight;
 var size;
 
+var scenenumber;
+
 function setup()
 {
-createCanvas(windowWidth, windowHeight); 
-size = windowHeight * windowWidth;
+
+  createCanvas(windowWidth, windowHeight); 
+  size = windowHeight * windowWidth;
 
 background(20,40,40);
+
+
+
+img = loadImage("resources/1.png");
+
+temp1 = loadImage("resources/1.png");
+temp2 = loadImage("resources/2.png");
+
+temp3 = loadImage("resources/3.png");
+temp4 = loadImage("resources/4.png");
+
+temp5 = loadImage("resources/5.png");
+temp6 = loadImage("resources/6.png");
+
+
+
   
-img = loadImage('resources/temp.jpg');
 icon = loadImage('resources/WidgetIcon.png');
 widget = new Widget(icon);
 
@@ -26,13 +53,30 @@ imageRatio = img.height / img.width;
 realHeight = windowHeight;
 
 
-strokeWeight(3);
+if (windowWidth * imageRatio < realHeight)
+  {
+    imgWidth = windowWidth;
+    imgHeight = imgWidth * imageRatio;
+  }
+  else
+  {
+    imgWidth = windowHeight / imageRatio;
+    imgHeight = windowHeight;
+  }
+  scenenumber = 1;
+  scene1But1 = new WidgetButton(imgWidth*7/10, imgHeight * 8/12,imgWidth/20 ,imgHeight / 40, false);
+  scene2But1 = new WidgetButton(imgWidth*7/10, imgHeight * 8/12,imgWidth/20 ,imgHeight / 40, false);
+
+  scene1But1.setActive(true);
+  
 
 }
 
 function draw()
 {
-
+// display
+  displayScene();
+  
   image(img, 0, 0, windowWidth, windowHeight);
   widget.display();
 }
@@ -91,15 +135,70 @@ class Widget {
     }
 }
 
+function scene1()
+{
+  scene1But1.display();
+  scene1But1.updatePos(imgWidth*7/10, imgHeight * 21/32,imgWidth/9 ,imgHeight / 30);
+  
+  if(scene1But1.isClick())
+  {
+
+    scenenumber = 2;
+    img = temp2;
+  
+  }
+
+}
+
+function scene1()
+{
+  img = temp1;
+  // buttons 
+  caramel = new WidgetButton(imgWidth*7/10, imgHeight * 8/12,imgWidth/20 ,imgHeight / 40);
+
+  
+  btnArray.push(caramel);
+}
+
+function scene2()
+{
+  
+
+}
+function scene3()
+{
+  img = temp3;
+  // buttons 
+
+
+}
+
+function displayScene()
+{
+  switch(scenenumber)
+  {
+    case 1: scene1();
+     break;
+    case 2: scene2();
+      break;
+    case 3: scene3();
+      break;
+    default:
+      break;
+  }
+}
+
+
 class WidgetButton {
-  constructor(xpos, ypos, sizex, sizey) {
+
+  constructor(xpos, ypos, sizex, sizey, active) {
     this.x = xpos;
     this.y = ypos;
     
     this.diameterX = sizex;
     this.diameterY = sizey;
-    this.clicked = false;
-    this.status = true;
+
+    this.isactive = active;
   }
 
   updatePos(xPos, yPos, sizex, sizey)
@@ -109,6 +208,27 @@ class WidgetButton {
 
     this.diameterX = sizex;
     this.diameterY = sizey;
+  }
+
+  display() {
+    
+    if(this.isactive)
+    {
+      console.log("displayingsdhb");  
+    fill(0,0,0,0);
+    stroke(255,0,0);
+    strokeWeight(1);
+
+    ellipse(this.x, this.y, this.diameterX, this.diameterY);
+    }
+    else{
+
+    }
+  }
+
+  setActive(setValue)
+  {
+    this.isactive = setValue;
   }
 
   isOver()
@@ -127,7 +247,9 @@ class WidgetButton {
 
   isClick()
   {
-    if(mouseIsPressed&&this.status)
+
+    if(this.isactive && this.isOver() && mouseIsPressed)
+
     {
       if(this.isOver()){
         this.clicked = true;
@@ -136,12 +258,8 @@ class WidgetButton {
         this.clicked = false;
       }
     }
-    return this.clicked;
-  }
+    return false;
 
-  moveButton(xpos, ypos){
-    this.x = xpos;
-    this.y = ypos; 
   }
 
   changeStatus(status){
