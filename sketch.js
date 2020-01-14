@@ -26,7 +26,7 @@ strokeWeight(3);
 
 function draw()
 {
-  image(img, 5, 5, windowWidth-5, windowHeight-5);
+  
   size = Math.sqrt(windowHeight * windowWidth) 
   ellipse(windowWidth-60, mouseY, size / 15, size / 15);
 
