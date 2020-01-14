@@ -14,10 +14,12 @@ createCanvas(windowWidth, windowHeight);
 size = windowHeight * windowWidth;
 
 background(20,40,40);
+
 tempBut = new WidgetButton(50,50,10,20);
 
 img = loadImage("resources/1.jpg");
 temp2 = loadImage("resources/2.jpg");
+
 
 
 imageRatio = img.height / img.width;
