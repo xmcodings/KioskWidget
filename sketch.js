@@ -132,10 +132,7 @@ function displayScene()
   {
     button.display();
     button.updatePos(imgWidth*7/10, imgHeight * 21/32,imgWidth/9 ,imgHeight / 30);
-    if(button.isClick())
-    {
-
-    }
+   
   }
   
   
