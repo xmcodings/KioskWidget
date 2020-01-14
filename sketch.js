@@ -16,8 +16,8 @@ size = windowHeight * windowWidth;
 background(20,40,40);
 tempBut = new WidgetButton(50,50,10,20);
 
-img = loadImage("resources/temp.jpg");
-temp2 = loadImage("resources/temp2.jpg");
+img = loadImage("resources/1.jpg");
+temp2 = loadImage("resources/2.jpg");
 
 
 imageRatio = img.height / img.width;
