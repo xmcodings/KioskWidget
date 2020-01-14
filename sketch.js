@@ -45,9 +45,9 @@ temp6 = loadImage("resources/6.png");
 
   
 icon = loadImage('resources/WidgetIcon.png');
+
 widget = new Widget(icon);
 
-//tempBut = new WidgetButton(50,50,10); create button
 
 imageRatio = img.height / img.width;
 realHeight = windowHeight;
@@ -75,10 +75,20 @@ if (windowWidth * imageRatio < realHeight)
 function draw()
 {
 // display
+if (windowWidth * imageRatio < realHeight)
+{
+  imgWidth = windowWidth;
+  imgHeight = imgWidth * imageRatio;
+}
+else
+{
+  imgWidth = windowHeight / imageRatio;
+  imgHeight = windowHeight;
+}
+  image(img, 0, 0, imgWidth, imgHeight);
   displayScene();
-  
-  image(img, 0, 0, windowWidth, windowHeight);
   widget.display();
+
 }
 function windowResized() { resizeCanvas(windowWidth, windowHeight); }
 
@@ -87,10 +97,10 @@ class Widget {
       this.icon = icon;
       this.widget_height= mouseY;
       this.count = false;
-      this.button = new WidgetButton(windowWidth-60, this.widget_height, 50, 50);
-      this.menu1 = new WidgetButton(windowWidth-155,this.widget_height-20,20,20);
+      this.button = new WidgetButton(windowWidth-60, this.widget_height, 50, 50, true);
+      this.menu1 = new WidgetButton(windowWidth-155,this.widget_height-20,20,20,true);
       this.menu1.changeStatus(false);
-      this.menu2 = new WidgetButton(windowWidth-155,this.widget_height+20,20,20);
+      this.menu2 = new WidgetButton(windowWidth-155,this.widget_height+20,20,20,true);
       this.menu2.changeStatus(false);
     }
 
@@ -142,22 +152,12 @@ function scene1()
   
   if(scene1But1.isClick())
   {
-
+    console.log("clicked!!!");
     scenenumber = 2;
     img = temp2;
-  
+
   }
 
-}
-
-function scene1()
-{
-  img = temp1;
-  // buttons 
-  caramel = new WidgetButton(imgWidth*7/10, imgHeight * 8/12,imgWidth/20 ,imgHeight / 40);
-
-  
-  btnArray.push(caramel);
 }
 
 function scene2()
@@ -199,6 +199,8 @@ class WidgetButton {
     this.diameterY = sizey;
 
     this.isactive = active;
+    this.clicked = false;
+    this.status = true;
   }
 
   updatePos(xPos, yPos, sizex, sizey)
@@ -214,9 +216,9 @@ class WidgetButton {
     
     if(this.isactive)
     {
-      console.log("displayingsdhb");  
+      //console.log("displayingsdhb");  
     fill(0,0,0,0);
-    stroke(255,0,0);
+    stroke(0,0,0);
     strokeWeight(1);
 
     ellipse(this.x, this.y, this.diameterX, this.diameterY);
@@ -249,7 +251,6 @@ class WidgetButton {
   {
 
     if(this.isactive && this.isOver() && mouseIsPressed)
-
     {
       if(this.isOver()){
         this.clicked = true;
@@ -257,9 +258,14 @@ class WidgetButton {
       else{
         this.clicked = false;
       }
+      return true;
     }
     return false;
 
+  }
+  moveButton(xpos, ypos){
+    this.x = xpos;
+    this.y = ypos; 
   }
 
   changeStatus(status){
