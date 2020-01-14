@@ -3,28 +3,20 @@ let img;
 let imageRatio;
 var realWidth;
 
-var imageWidth;
-var imageHeight;
-
-
 function setup()
 {
   
 createCanvas(windowWidth, windowHeight); 
 
 background(20,40,40);
+
 img = loadImage('resources/temp.jpg');
-strokeWeight(10);
+
+strokeWeight(3);
 
 tempBut = new WidgetButton();
-background(20,40,40);
-img = loadImage("resources/temp.jpg");
-
-
-background(20,40,40);
-img = loadImage("resources/temp.jpg");
 imageRatio = img.height / img.width;
-weight = 3;
+
 realWidth = windowWidth;
 }
 
@@ -46,14 +38,8 @@ function draw()
     imgWidth = windowHeight / imageRatio;
     imgHeight = windowHeight;
   }
+  
   image(img, 0, 0, imgWidth, imgHeight);
-
-}
-
-function windowResized() { resizeCanvas(windowWidth, windowHeight); }
-
-
-  image(img, 0, 0, windowWidth, windowHeight);
 
   ellipse(windowWidth-60, mouseY, 50, 50);
 
