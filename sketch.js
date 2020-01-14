@@ -13,7 +13,7 @@ background(20,40,40);
 img = loadImage('resources/temp.jpg');
 strokeWeight(2);
 
-tempBut = new WidgetButton();
+tempBut = new WidgetButton(50,50,10);
 background(20,40,40);
 img = loadImage("resources/temp.jpg");
 
@@ -26,7 +26,6 @@ function draw()
   size = Math.sqrt(windowHeight * windowWidth) 
   ellipse(windowWidth-60, mouseY, size / 15, size / 15);
 
-  tempBut.move();
   tempBut.display();
 
   
@@ -39,14 +38,9 @@ function windowResized() {
 
 class WidgetButton {
   constructor(xpos, ypos, size) {
-    this.x = random(windowWidth);
-    this.y = random(windowHeight);
-    
-  }
-
-  move() {
-    this.x += random(-this.speed, this.speed);
-    this.y += random(-this.speed, this.speed);
+    this.x = xpos;
+    this.y = ypos;
+    this.diameter = size;
   }
 
   display() {
@@ -56,7 +50,7 @@ class WidgetButton {
 
   isOver()
   {
-    if(mouseX > this.x - this.diameter/2 && mouseX > this.x - this.diameter/2)
+    if(mouseX > this.x - this.diameter/2 && mouseX < this.x + this.diameter/2)
     {
       if(mouseY > this.y - this.diameter/2 && mouseY < this.y + this.diameter/2 )
       {
