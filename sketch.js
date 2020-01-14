@@ -1,32 +1,39 @@
 var weight;
 let img;
-let imageWidth;
-let imageHeight;
 let imageRatio;
+var realWidth;
 
 function setup()
 {
   
 createCanvas(windowWidth, windowHeight); 
 
-
-
 background(20,40,40);
 img = loadImage("resources/temp.jpg");
-imageWidth = img.width;
-imageHeight = img.height;
 imageRatio = img.height / img.width;
 weight = 3;
+realWidth = windowWidth;
 }
 
 function draw()
 {
-  if (windowWidth * imageRatio < windowHeight) {
-    image(img, 0, 0, windowWidth, windowWidth * imageRatio);  
+  var imgWidth;
+  var imgHeight;
+  imageWidth = img.width;
+  imageHeight = img.height;
+
+  if (windowWidth *imageRatio < realWidth)
+  {
+    imgWidth = windowWidth;
+    imgHeight = imgWidth * imageRatio;
   }
-  else {
-    image(image, 0, 0, windowheight / imageRatio, windowheight)
+  else
+  {
+    imgWidth = windowHeight / imageRatio;
+    imgHeight = windowHeight;
   }
+  image(img, 0, 0, imgWidth, imgHeight);
+
 }
 
 function windowResized() { resizeCanvas(windowWidth, windowHeight); }
