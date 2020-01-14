@@ -85,7 +85,7 @@ else
   imgWidth = windowHeight / imageRatio;
   imgHeight = windowHeight;
 }
-  image(img, 0, 0, imgWidth, imgHeight);
+  image(img, 0, 0, imgWidth, windowHeight);
   displayScene();
   widget.display();
 
