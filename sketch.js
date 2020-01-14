@@ -1,6 +1,7 @@
 var weight;
 let img;
 let imageRatio;
+let temp2;
 var realHeight;
 
 var imageWidth;
@@ -13,9 +14,12 @@ createCanvas(windowWidth, windowHeight);
 size = windowHeight * windowWidth;
 
 background(20,40,40);
-tempBut = new WidgetButton(50,50,10);
+tempBut = new WidgetButton(50,50,10,20);
 
 img = loadImage("resources/temp.jpg");
+temp2 = loadImage("resources/temp2.jpg");
+
+
 imageRatio = img.height / img.width;
 realHeight = windowHeight;
 
@@ -49,6 +53,10 @@ function draw()
   image(img, 0, 0, imgWidth, imgHeight);
 
   tempBut.display();
+  if(tempBut.isClick())
+  {
+    img = temp2;
+  }
 }
 
 function windowResized() { 
@@ -57,22 +65,28 @@ function windowResized() {
 }
 
 class WidgetButton {
-  constructor(xpos, ypos, size) {
+  constructor(xpos, ypos, sizex, sizey) {
     this.x = xpos;
     this.y = ypos;
-    this.diameter = size;
+    this.diameterX = sizex;
+    this.diameterY = sizey;
+    
   }
 
   display() {
-    ellipse(this.x, this.y, this.diameter, this.diameter);
-    this.isClick();
+    fill(0,0,0,0);
+    stroke(255,0,0);
+    strokeWeight(3);
+
+    ellipse(this.x, this.y, this.diameterX, this.diameterY);
+    
   }
 
   isOver()
   {
-    if(mouseX > this.x - this.diameter/2 && mouseX < this.x + this.diameter/2)
+    if(mouseX > this.x - this.diameterX/2 && mouseX < this.x + this.diameterX/2)
     {
-      if(mouseY > this.y - this.diameter/2 && mouseY < this.y + this.diameter/2 )
+      if(mouseY > this.y - this.diameterY/2 && mouseY < this.y + this.diameterY/2 )
       {
         return true;
       }
@@ -86,10 +100,9 @@ class WidgetButton {
   {
     if(this.isOver() && mouseIsPressed)
     {
-      this.x = random(windowWidth);
-      this.y = random(windowHeight);
-      this.diameter = random(10, 30);
+      return true;
     }
+    return false;
   }
 
 }
