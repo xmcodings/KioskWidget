@@ -3,10 +3,6 @@ let img;
 let imageRatio;
 var realHeight;
 
-var imageWidth;
-var imageHeight;
-
-
 function setup()
 {
   
