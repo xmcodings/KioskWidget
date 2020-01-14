@@ -1,7 +1,8 @@
 var weight;
 let img;
 let imageRatio;
-var realWidth;
+var realHeight;
+
 
 function setup()
 {
@@ -10,25 +11,24 @@ createCanvas(windowWidth, windowHeight);
 
 background(20,40,40);
 
-img = loadImage('resources/temp.jpg');
+img = loadImage("resources/temp.jpg");
+imageRatio = img.height / img.width;
+realHeight = windowHeight;
+
 
 strokeWeight(3);
 
 tempBut = new WidgetButton();
-imageRatio = img.height / img.width;
-
-realWidth = windowWidth;
 }
 
 function draw()
 {
-
   var imgWidth;
   var imgHeight;
   imageWidth = img.width;
   imageHeight = img.height;
 
-  if (windowWidth *imageRatio < realWidth)
+  if (windowWidth * imageRatio < realHeight)
   {
     imgWidth = windowWidth;
     imgHeight = imgWidth * imageRatio;
@@ -46,7 +46,6 @@ function draw()
   tempBut.move();
   tempBut.display();
 
-  
 }
 
 function windowResized() { resizeCanvas(windowWidth, windowHeight); }
@@ -70,4 +69,3 @@ class WidgetButton {
 
 }
 function windowResized() { resizeCanvas(windowWidth, windowHeight); }
-
