@@ -20,13 +20,15 @@ var scenenumber;
 
 function setup()
 {
-createCanvas(windowWidth, windowHeight); 
-size = windowHeight * windowWidth;
+
+  createCanvas(windowWidth, windowHeight); 
+  size = windowHeight * windowWidth;
 
 background(20,40,40);
 
 
 img = loadImage("resources/1.png");
+
 temp1 = loadImage("resources/1.png");
 temp2 = loadImage("resources/2.png");
 
@@ -44,7 +46,7 @@ if (windowWidth * imageRatio < realHeight)
     imgWidth = windowHeight / imageRatio;
     imgHeight = windowHeight;
   }
-
+  
   
 }
 
@@ -69,19 +71,13 @@ function draw()
     imgHeight = windowHeight;
   }
   image(img, 0, 0, imgWidth, imgHeight);
-  
+  // widget
   strokeWeight(3);
   stroke(0);
   ellipse(windowWidth-60, mouseY, size / 15, size / 15);
-
+// display
+  displayScene();
   
-  tempBut.display();
-  tempBut.updatePos(imgWidth*7/10, imgHeight * 21/32,imgWidth/9 ,imgHeight / 30);
-  
-  if(tempBut.isClick())
-  {
-    img = temp2;
-  }
   
 }
 
@@ -98,22 +94,23 @@ function sceneChange()
   switch(scenenumber)
   {
     case 1: scene1(); break;
-    case 2: break;
+    case 2: scene2(); break;
 
 
   }
 
 }
 
-
 function scene1()
 {
   img = temp1;
   // buttons 
-  tempBut = new WidgetButton(imgWidth*7/10, imgHeight * 8/12,imgWidth/20 ,imgHeight / 40);
+  caramel = new WidgetButton(imgWidth*7/10, imgHeight * 8/12,imgWidth/20 ,imgHeight / 40);
 
   
+  btnArray.push(caramel);
 }
+
 function scene2()
 {
   img = temp2;
@@ -128,6 +125,20 @@ function scene3()
 
 }
 
+function displayScene()
+{
+  for (button in btnArray)
+  {
+    button.display();
+    button.updatePos(imgWidth*7/10, imgHeight * 21/32,imgWidth/9 ,imgHeight / 30);
+    if(button.isClick())
+    {
+
+    }
+  }
+  
+  
+}
 
 
 class WidgetButton {
