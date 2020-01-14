@@ -1,7 +1,7 @@
 var weight;
 let img;
 let icon;
-
+let c;
 
 function setup()
 {
@@ -10,14 +10,44 @@ createCanvas(windowWidth, windowHeight);
 background(20,40,40);
 img = loadImage('resources/temp.jpg');
 icon = loadImage('resources/WidgetIcon.png');
+widget = new Widget(icon);
 }
 
 function draw()
 {
-  fill('rgba(0,0,0, 0.25)');
-  strokeWeight(3);
   image(img, 0, 0, windowWidth, windowHeight);
-  ellipse(windowWidth-60, mouseY, 50, 50);
-  image(icon,windowWidth-82,mouseY-12,40,20);
+  widget.display();
 }
 function windowResized() { resizeCanvas(windowWidth, windowHeight); }
+
+class Widget {
+    constructor(icon){
+      this.icon = icon;
+      this.widget_height= mouseY;
+      this.count = false;
+    }
+
+    display(){
+      this.update();
+      strokeWeight(3);
+      if(this.count){
+        c = color('rgba(0,0,0,0.5)');
+        fill(c);
+        arc(windowWidth-60, this.widget_height, 200, 200, PI, PI + QUARTER_PI,PIE);
+        arc(windowWidth-60, this.widget_height, 200, 200, PI-QUARTER_PI, PI,PIE);
+      }
+      else{
+        c = color('rgba(0,0,0, 0.25)');
+        fill(c);
+      }
+      ellipse(windowWidth-60, this.widget_height, 50, 50);
+      image(icon,windowWidth-82,this.widget_height-12,40,20);
+    }
+
+    update(){
+      if(true) {
+        this.widget_height = mouseY;
+        this.count = true;
+      }
+    }
+}
