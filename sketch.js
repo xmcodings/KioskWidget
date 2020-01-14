@@ -1,14 +1,17 @@
 var weight;
 let img;
-
+var imageWidth;
+var imageHeight;
 
 function setup()
 {
   
 createCanvas(windowWidth, windowHeight); 
+
+
+
 background(20,40,40);
-img = loadImage('resources/temp.jpg');
-strokeWeight(10);
+img = loadImage("resources/temp.jpg");
 
 weight = 3;
 }
@@ -20,4 +23,7 @@ function draw()
 
   image(img, 0, 0, windowWidth, windowHeight);
 }
+
 function windowResized() { resizeCanvas(windowWidth, windowHeight); }
+
+
