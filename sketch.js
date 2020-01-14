@@ -30,6 +30,14 @@ img = loadImage("resources/1.png");
 temp1 = loadImage("resources/1.png");
 temp2 = loadImage("resources/2.png");
 
+temp3 = loadImage("resources/3.png");
+temp4 = loadImage("resources/4.png");
+
+temp5 = loadImage("resources/5.png");
+temp6 = loadImage("resources/6.png");
+
+
+
 imageRatio = img.height / img.width;
 realHeight = windowHeight;
 
@@ -44,8 +52,13 @@ if (windowWidth * imageRatio < realHeight)
     imgWidth = windowHeight / imageRatio;
     imgHeight = windowHeight;
   }
+  scenenumber = 1;
+  scene1But1 = new WidgetButton(imgWidth*7/10, imgHeight * 8/12,imgWidth/20 ,imgHeight / 40, false);
+  scene2But1 = new WidgetButton(imgWidth*7/10, imgHeight * 8/12,imgWidth/20 ,imgHeight / 40, false);
 
+  scene1But1.setActive(true);
   
+
 }
 
 function draw()
@@ -73,16 +86,9 @@ function draw()
   strokeWeight(3);
   stroke(0);
   ellipse(windowWidth-60, mouseY, size / 15, size / 15);
+  
+  displayScene();
 
-  
-  tempBut.display();
-  tempBut.updatePos(imgWidth*7/10, imgHeight * 21/32,imgWidth/9 ,imgHeight / 30);
-  
-  if(tempBut.isClick())
-  {
-    img = temp2;
-  }
-  
 }
 
 function windowResized() { 
@@ -90,35 +96,22 @@ function windowResized() {
   
 }
 
-function sceneChange()
+function scene1()
 {
-  // pop btn arraylist
-  while(btnArray.size != 0) btnArray.pop();
-
-  switch(scenenumber)
+  scene1But1.display();
+  scene1But1.updatePos(imgWidth*7/10, imgHeight * 21/32,imgWidth/9 ,imgHeight / 30);
+  
+  if(scene1But1.isClick())
   {
-    case 1: scene1(); break;
-    case 2: break;
-
+    scenenumber = 2;
+    img = temp2;
 
   }
 
 }
-
-
-function scene1()
-{
-  img = temp1;
-  // buttons 
-  tempBut = new WidgetButton(imgWidth*7/10, imgHeight * 8/12,imgWidth/20 ,imgHeight / 40);
-
-  
-}
 function scene2()
 {
-  img = temp2;
-  // buttons 
-
+  
 
 }
 function scene3()
@@ -126,17 +119,33 @@ function scene3()
   img = temp3;
   // buttons 
 
+
+}
+
+function displayScene()
+{
+  switch(scenenumber)
+  {
+    case 1: scene1();
+     break;
+    case 2: scene2();
+      break;
+    case 3: scene3();
+      break;
+    default:
+      break;
+  }
 }
 
 
-
 class WidgetButton {
-  constructor(xpos, ypos, sizex, sizey) {
+  constructor(xpos, ypos, sizex, sizey, active) {
     this.x = xpos;
     this.y = ypos;
     
     this.diameterX = sizex;
     this.diameterY = sizey;
+    this.isactive = active;
   }
 
   updatePos(xPos, yPos, sizex, sizey)
@@ -149,12 +158,24 @@ class WidgetButton {
   }
 
   display() {
+    
+    if(this.isactive)
+    {
+      console.log("displayingsdhb");  
     fill(0,0,0,0);
     stroke(255,0,0);
     strokeWeight(1);
 
     ellipse(this.x, this.y, this.diameterX, this.diameterY);
-    
+    }
+    else{
+
+    }
+  }
+
+  setActive(setValue)
+  {
+    this.isactive = setValue;
   }
 
   isOver()
@@ -173,7 +194,7 @@ class WidgetButton {
 
   isClick()
   {
-    if(this.isOver() && mouseIsPressed)
+    if(this.isactive && this.isOver() && mouseIsPressed)
     {
       return true;
     }
