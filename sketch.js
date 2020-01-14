@@ -56,8 +56,6 @@ function windowResized() { resizeCanvas(windowWidth, windowHeight); }
   tempBut.move();
   tempBut.display();
 
-  
-}
 
 function windowResized() { resizeCanvas(windowWidth, windowHeight); }
 
