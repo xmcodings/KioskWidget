@@ -13,7 +13,7 @@ createCanvas(windowWidth, windowHeight);
 size = windowHeight * windowWidth;
 
 background(20,40,40);
-tempBut = new WidgetButton(50,50,10);
+//tempBut = new WidgetButton(50,50,10); create button
 
 img = loadImage("resources/temp.jpg");
 imageRatio = img.height / img.width;
@@ -86,9 +86,7 @@ class WidgetButton {
   {
     if(this.isOver() && mouseIsPressed)
     {
-      this.x = random(windowWidth);
-      this.y = random(windowHeight);
-      this.diameter = random(10, 30);
+      return true;
     }
   }
 
