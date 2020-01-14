@@ -1,7 +1,7 @@
 var weight;
 let img;
 let imageRatio;
-var realWidth;
+var realHeight;
 
 function setup()
 {
@@ -12,7 +12,7 @@ background(20,40,40);
 img = loadImage("resources/temp.jpg");
 imageRatio = img.height / img.width;
 weight = 3;
-realWidth = windowWidth;
+realHeight = windowHeight;
 }
 
 function draw()
@@ -22,7 +22,7 @@ function draw()
   imageWidth = img.width;
   imageHeight = img.height;
 
-  if (windowWidth *imageRatio < realWidth)
+  if (windowWidth * imageRatio < realHeight)
   {
     imgWidth = windowWidth;
     imgHeight = imgWidth * imageRatio;
