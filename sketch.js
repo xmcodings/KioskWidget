@@ -129,12 +129,13 @@ function windowResized() { resizeCanvas(windowWidth, windowHeight); }
 class Widget {
     constructor(icon){
       this.icon = icon;
-      this.widget_height= mouseY;
+      this.ytemp = mouseY;
+      this.widget_height = 0;
       this.count = false;
       this.button = new WidgetButton(imgWidth-40, this.widget_height, 50, 50, true);
-      this.menu1 = new WidgetButton(imgWidth-135,this.widget_height-20,20,20,true);
+      this.menu1 = new WidgetButton(imgWidth-135,this.widget_height-20,20,20, true);
       this.menu1.changeStatus(false);
-      this.menu2 = new WidgetButton(imgWidth-135,this.widget_height+20,20,20,true);
+      this.menu2 = new WidgetButton(imgWidth-135,this.widget_height+20,20,20, true);
       this.menu2.changeStatus(false);
     }
 
@@ -144,16 +145,30 @@ class Widget {
       if(this.count){
         c = color('rgba(255,255,255, 1)');
         fill(c);
+        this.widget_height = this.ytemp;
         arc(imgWidth-40, this.widget_height, 200, 200, PI, PI + QUARTER_PI,PIE);
         arc(imgWidth-40, this.widget_height, 200, 200, PI-QUARTER_PI, PI,PIE);
-
         c = color('rgba(0,0,0,1)');
         fill(c);
         textSize(15);
         text('차차모드',imgWidth-135,this.widget_height-20);
         text('음성안내',imgWidth-135,this.widget_height+20);
-
+        
         c = color('rgba(255,255,255, 1');
+        
+        this.menu1.display();
+        
+        this.menu2.display();
+        
+        if(this.menu1.isClick())
+        {
+          this.count = false;
+        }
+        if(this.menu2.isClick())
+        {
+          this.count = false;
+        }
+
       }
       else{
         c = color('rgba(255,255,255, 0.3)');
@@ -169,15 +184,17 @@ class Widget {
         if(!this.count)
         {
           this.count = true;
+          this.ytemp = this.widget_height;
         }
         else{
           this.count = false;
         } 
         this.menu1.changeStatus(true);
         this.menu2.changeStatus(true);
+        
       }
       else{
-        this.widget_height = mouseY;
+        this.widget_height = 50;
         this.button.moveButton(imgWidth-40, this.widget_height);
         this.menu1.changeStatus(false);
         this.menu2.changeStatus(false);
