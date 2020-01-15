@@ -21,6 +21,7 @@ let completeSound;
 
 var imgHeight;
 var imgWidth;
+var drinkcount;
 
 let btnArray = []; // Container for buttons
 
