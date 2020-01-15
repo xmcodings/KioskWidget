@@ -19,7 +19,8 @@ let pointSound;
 let paySound;
 let completeSound;
 
-
+var imgHeight;
+var imgWidth;
 
 let btnArray = []; // Container for buttons
 
@@ -30,7 +31,7 @@ var imageHeight;
 var size;
 
 var scenenumber;
-var mouseRelease;
+var mouseClick;
 
 function setup()
 {
@@ -129,10 +130,10 @@ class Widget {
       this.icon = icon;
       this.widget_height= mouseY;
       this.count = false;
-      this.button = new WidgetButton(windowWidth-60, this.widget_height, 50, 50, true);
-      this.menu1 = new WidgetButton(windowWidth-155,this.widget_height-20,20,20,true);
+      this.button = new WidgetButton(imgWidth-40, this.widget_height, 50, 50, true);
+      this.menu1 = new WidgetButton(imgWidth-135,this.widget_height-20,20,20,true);
       this.menu1.changeStatus(false);
-      this.menu2 = new WidgetButton(windowWidth-155,this.widget_height+20,20,20,true);
+      this.menu2 = new WidgetButton(imgWidth-135,this.widget_height+20,20,20,true);
       this.menu2.changeStatus(false);
     }
 
@@ -142,14 +143,14 @@ class Widget {
       if(this.count){
         c = color('rgba(255,255,255, 1)');
         fill(c);
-        arc(windowWidth-60, this.widget_height, 200, 200, PI, PI + QUARTER_PI,PIE);
-        arc(windowWidth-60, this.widget_height, 200, 200, PI-QUARTER_PI, PI,PIE);
+        arc(imgWidth-40, this.widget_height, 200, 200, PI, PI + QUARTER_PI,PIE);
+        arc(imgWidth-40, this.widget_height, 200, 200, PI-QUARTER_PI, PI,PIE);
 
         c = color('rgba(0,0,0,1)');
         fill(c);
         textSize(15);
-        text('차차모드',windowWidth-155,this.widget_height-20);
-        text('음성안내',windowWidth-155,this.widget_height+20);
+        text('차차모드',imgWidth-135,this.widget_height-20);
+        text('음성안내',imgWidth-135,this.widget_height+20);
 
         c = color('rgba(255,255,255, 1');
       }
@@ -157,20 +158,26 @@ class Widget {
         c = color('rgba(255,255,255, 0.3)');
       }
       fill(c);
-      ellipse(windowWidth-60, this.widget_height, 50, 50);
-      image(icon,windowWidth-82,this.widget_height-12,40,20);
+      ellipse(imgWidth-40, this.widget_height, 50, 50);
+      image(icon,imgWidth-62,this.widget_height-12,40,20);
     }
 
     update(){
       if(this.button.isClick()) {
-        this.count = true;
+        
+        if(!this.count)
+        {
+          this.count = true;
+        }
+        else{
+          this.count = false;
+        } 
         this.menu1.changeStatus(true);
         this.menu2.changeStatus(true);
       }
       else{
         this.widget_height = mouseY;
-        this.button.moveButton(windowWidth-60, this.widget_height);
-        this.count = false;
+        this.button.moveButton(imgWidth-40, this.widget_height);
         this.menu1.changeStatus(false);
         this.menu2.changeStatus(false);
       }
@@ -385,7 +392,7 @@ class WidgetButton {
   isClick()
   {
 
-    if(this.isactive && this.isOver() && mouseIsPressed)
+    if(this.isactive && this.isOver() && mouseIsPressed && mouseClick)
     {
       if(this.isOver()){
         this.clicked = true;
@@ -393,21 +400,13 @@ class WidgetButton {
       else{
         this.clicked = false;
       }
+      mouseClick = false;
       return true;
     }
     return false;
 
   }
 
-  isClickRelease()
-  {
-    if(this.isClick())
-    {
-      return true;
-
-    }
-    return false;
-  }
 
   moveButton(xpos, ypos){
     this.x = xpos;
@@ -417,5 +416,12 @@ class WidgetButton {
   changeStatus(status){
     this.status = status;
   }
+}
+
+function mouseClicked()
+{
+  mouseClick = true;
+  console.log("mouseclik");
+
 }
 
