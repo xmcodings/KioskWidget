@@ -15,6 +15,9 @@ let backSound;
 let plusSound;
 let minusSound;
 let discountSound;
+let pointSound;
+let paySound;
+let completeSound;
 
 
 
@@ -57,6 +60,9 @@ backSound = loadSound('audio/back.mp3')
 minusSound = loadSound('audio/minus.mp3')
 plusSound = loadSound('audio/plus.mp3')
 discountSound = loadSound('audio/discount.mp3')
+pointSound = loadSound('audio/point.mp3');
+paySound = loadSound('audio/pay.mp3');
+completeSound = loadSound('audio/complete.mp3');
 
 icon = loadImage('resources/WidgetIcon.png');
 
@@ -83,6 +89,14 @@ if (windowWidth * imageRatio < realHeight)
   scene2Plus = new WidgetButton(imgWidth*41/64, imgHeight * 21/32,imgWidth/15 ,imgHeight / 15, false);
   scene2Select = new WidgetButton(imgWidth*2/3, imgHeight * 29/32,imgWidth/3.5 ,imgHeight / 15, false);
   scene2Back = new WidgetButton(imgWidth*1/3, imgHeight * 29/32,imgWidth/4 ,imgHeight / 15, false);
+
+  scene3But1 = new WidgetButton(imgWidth*0.5, imgHeight * 0.75,imgWidth * 0.9 ,imgHeight * 0.3, false);
+
+  scene4But1 = new WidgetButton(imgWidth*0.5-20, imgHeight * 0.87,imgWidth * 0.45 ,imgHeight * 0.15, false);
+
+  scene5But1 = new WidgetButton(imgWidth*0.5+20, imgHeight * 0.47,imgWidth * 0.45 ,imgHeight * 0.15, false);
+  scene6But1 = new WidgetButton(0, 0,imgWidth * 0.45 ,imgHeight * 0.15, false);
+
 
   scene1But1.setActive(true);
   
@@ -193,6 +207,7 @@ function scene2()
   scene2Select.display();
   scene2Back.display();
   
+
   if(scene2Back.isClick())
   {
     scenenumber = 1;
@@ -215,16 +230,76 @@ function scene2()
     plusSound.play();
   }
 
+  if(scene2Select.isClick())
+  { 
+    scenenumber = 3;
+    scene2Back.setActive(false);
+    scene2Minus.setActive(false);
+    scene2Plus.setActive(false);
+    scene2Select.setActive(false);
+    
+    discountSound.play();
 
+  }
 
 
 }
 function scene3()
 {
   img = temp3;
-  // buttons 
+  scene3But1.setActive(true);
+  scene3But1.display();
 
+  if(scene3But1.isClick())
+  {
+    scenenumber = 4;
+    scene3But1.setActive(false);
 
+    pointSound.play();
+  }
+
+}
+
+function scene4()
+{
+  img = temp4;
+  scene4But1.setActive(true);
+  scene4But1.display();
+
+  if(scene4But1.isClick())
+  {
+    console.log("kkk");
+    scenenumber = 5;
+    scene4But1.setActive(false);
+
+    paySound.play();
+  }
+
+}
+function scene5()
+{
+  img = temp5;
+  scene5But1.setActive(true);
+  scene5But1.display();
+  if(scene5But1.isClick())
+  {
+    scenenumber = 6;
+    completeSound.play();
+    scene5But1.setActive(false);
+  }
+  
+}
+function scene6()
+{
+  img = temp6;
+  scene6But1.setActive(true);
+  scene6But1.display();
+  if(scene6But1.isClick())
+  {
+    scenenumber = 1;
+    scene6But1.setActive(false);
+  }
+  
 }
 
 function displayScene()
@@ -237,6 +312,12 @@ function displayScene()
       break;
     case 3: scene3();
       break;
+    case 4: scene4();
+      break;
+    case 5: scene5();
+       break;
+    case 6: scene6();
+       break;
     default:
       break;
   }
@@ -320,7 +401,7 @@ class WidgetButton {
 
   isClickRelease()
   {
-    if(this.isClick() && mouseRelease)
+    if(this.isClick())
     {
       return true;
 
@@ -338,7 +419,3 @@ class WidgetButton {
   }
 }
 
-mousClicked()
-{
-  mouseRelease = true;
-}
