@@ -28,7 +28,7 @@ function setup()
 background(20,40,40);
 
 
-img = loadImage("resources/1.png");
+img = loadImage("resources/4.png");
 
 temp1 = loadImage("resources/1.png");
 temp2 = loadImage("resources/2.png");
@@ -58,6 +58,7 @@ function draw()
   
   var imgWidth;
   var imgHeight;
+  var asdf;
   imageWidth = img.width;
   imageHeight = img.height;
 
@@ -72,14 +73,15 @@ function draw()
     imgHeight = windowHeight;
   }
   image(img, 0, 0, imgWidth, imgHeight);
+  //console.log("fire!");
   // widget
   strokeWeight(3);
   stroke(0);
   ellipse(windowWidth-60, mouseY, size / 15, size / 15);
 // display
   displayScene();
-  
-  
+  tempA = new WidgetButton(imgWidth*0.5, imgHeight * 0.87,imgWidth*0.85 ,imgHeight*0.15);
+  tempA.display();
 }
 
 function windowResized() { 
@@ -107,7 +109,7 @@ function scene1()
   img = temp1;
   // buttons 
   caramel = new WidgetButton(imgWidth*7/10, imgHeight * 8/12,imgWidth/20 ,imgHeight / 40);
-
+  
   
   btnArray.push(caramel);
 }
@@ -130,8 +132,9 @@ function displayScene()
 {
   for (button in btnArray)
   {
-    button.display();
+    
     button.updatePos(imgWidth*7/10, imgHeight * 21/32,imgWidth/9 ,imgHeight / 30);
+    button.display();
    
   }
   
