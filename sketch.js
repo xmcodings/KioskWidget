@@ -32,6 +32,9 @@ var imageHeight;
 var size;
 var tempBut;
 
+var caramelAmt = 0;
+var r
+
 var scenenumber;
 var mouseClick;
 
@@ -92,6 +95,7 @@ if (windowWidth * imageRatio < realHeight)
   scene2Plus = new WidgetButton(imgWidth*41/64, imgHeight * 21/32,imgWidth/15 ,imgHeight / 15, false);
   scene2Select = new WidgetButton(imgWidth*2/3, imgHeight * 29/32,imgWidth/3.5 ,imgHeight / 15, false);
   scene2Back = new WidgetButton(imgWidth*1/3, imgHeight * 29/32,imgWidth/4 ,imgHeight / 15, false);
+  scene2Amt = new textLabel();
 
   scene3But1 = new WidgetButton(imgWidth*0.5, imgHeight * 0.75,imgWidth * 0.9 ,imgHeight * 0.3, false);
 
@@ -126,6 +130,22 @@ else
 
 }
 function windowResized() { resizeCanvas(windowWidth, windowHeight); }
+
+class textLabel {
+  constructor()
+  {
+    this.cordX = imgWidth*0.39;
+    this.cordY = imgHeight*21/32;
+  }
+  display() {
+    if(scenenumber == 2)
+    {
+    textSize(32);
+    fill(255, 255, 255);
+    text(caramelAmt.toString(), this.cordX, this.cordY);
+    }
+  }
+}
 
 class Widget {
     constructor(icon){
@@ -230,12 +250,15 @@ function scene2()
   }
   if(scene2Minus.isClick())
   {
-    
-    minusSound.play();
+    if(caramelAmt > 0)
+    {
+      caramelAmt--;
+      minusSound.play();
+    }
   }
   if(scene2Plus.isClick())
   {
-    
+    caramelAmt++;
     plusSound.play();
   }
 
