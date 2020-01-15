@@ -194,7 +194,7 @@ class Widget {
         
       }
       else{
-        this.widget_height = 50;
+        this.widget_height = mouseY;
         this.button.moveButton(imgWidth-40, this.widget_height);
         this.menu1.changeStatus(false);
         this.menu2.changeStatus(false);
